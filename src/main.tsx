@@ -11,14 +11,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <SnackbarProvider autoHideDuration={5000}>
-                <ThemeMode>
-                    <CssBaseline enableColorScheme={true} />
-                    <App />
-                </ThemeMode>
-            </SnackbarProvider>
-        </BrowserRouter>
-    </React.StrictMode>,
+
+    <BrowserRouter>
+        <SnackbarProvider autoHideDuration={5000}>
+            <ThemeMode>
+                <CssBaseline enableColorScheme={true} />
+                <App />
+            </ThemeMode>
+        </SnackbarProvider>
+    </BrowserRouter>
+    ,
 )

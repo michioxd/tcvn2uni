@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.16",
     "clsx": "^1.2.1",
+    "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
@@ -27,6 +28,7 @@
     "vietnamese-conversion": "^1.0.6"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",

@@ -2,11 +2,12 @@ import { Box, Button, Checkbox, CircularProgress, FormControl, FormControlLabel,
 import React, { useCallback, useEffect, useState } from "react";
 import JSZip from 'jszip';
 import { useSnackbar } from "notistack";
+import ProcessingFile from "./ProcessingFile";
 
 
 const charSupported: string[] = ['tcvn3', 'vni'];
 
-export default function Option({ file, handleBack }: { file: File, handleBack?: () => void }) {
+export default function Option({ file, handleBack, setStep }: { file: File, handleBack?: () => void, setStep?: (st: number) => void }) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const filename = file.name;
     const extension = filename.split('.').pop()?.toLowerCase();
@@ -14,6 +15,7 @@ export default function Option({ file, handleBack }: { file: File, handleBack?: 
     const [slide, setSlide] = React.useState<number[]>([1, 1]);
     const [minMaxSlide, setMinMaxSlide] = useState<number[]>([1, 1]);
     const [loadingFile, setLoadingFile] = useState<boolean>(false);
+    const [startProcessingFile, setStartProcessingFile] = useState<boolean>(false);
     const [selectAllSlide, setSelectAllSlide] = useState<boolean>(true);
     const [selectedChar, setSelectedChar] = React.useState<number>(0);
 
@@ -77,63 +79,62 @@ export default function Option({ file, handleBack }: { file: File, handleBack?: 
 
     }, [file]);
 
+    if (startProcessingFile) return (<ProcessingFile setStep={(st) => setStep!(st)} selectedChar={selectedChar} selectedSlide={slide} selectAll={selectAllSlide} file={file} ext={extension} filename={filename} handleBack={handleBack} />);
+
+    if (loadingFile) return (
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CircularProgress size={'sm'} sx={{ mr: 2 }} />
+            <Typography variant="body1">Đang đọc dữ liệu tệp, vui lòng chờ</Typography>
+        </Box>
+    );
+
     return (
         <>
-            {loadingFile ? (
-                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <CircularProgress sx={{ mr: 2 }} />
-                    <Typography variant="body2">Đang đọc dữ liệu tệp, vui lòng chờ</Typography>
-                </Box>
-            ) : (
+            <FormControl fullWidth sx={{ mb: 2 }}>
+                <InputLabel id="select-char-label">Chọn bảng mã của dữ liệu vào</InputLabel>
+                <Select
+                    labelId="select-char-label"
+                    id="select-char"
+                    value={String(selectedChar)}
+                    label="Chọn bảng mã của dữ liệu vào"
+                    onChange={handleChange}
+                >
+                    {charSupported.map((d, i) => (
+                        <MenuItem value={i} key={i}>{d.toUpperCase()}</MenuItem>
+                    ))}
+                </Select>
+                <FormHelperText>Nếu bảng mã hiện tại không khớp, vui lòng chuyển qua bảng mã khác!</FormHelperText>
+            </FormControl>
+            {extension === "pptx" && (
                 <>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <InputLabel id="select-char-label">Chọn bảng mã của dữ liệu vào</InputLabel>
-                        <Select
-                            labelId="select-char-label"
-                            id="select-char"
-                            value={String(selectedChar)}
-                            label="Chọn bảng mã của dữ liệu vào"
-                            onChange={handleChange}
-                        >
-                            {charSupported.map((d, i) => (
-                                <MenuItem value={i} key={i}>{d.toUpperCase()}</MenuItem>
-                            ))}
-                        </Select>
-                        <FormHelperText>Nếu bảng mã hiện tại không khớp, vui lòng chuyển qua bảng mã khác!</FormHelperText>
-                    </FormControl>
-                    {extension === "pptx" && (
-                        <>
-                            <Typography variant="body1">
-                                Vui lòng lựa chọn slide
-                            </Typography>
-                            <FormGroup>
-                                <FormControlLabel control={<Checkbox inputProps={{ 'aria-label': 'controlled' }} defaultChecked onChange={handleChangeSelectAll} />} label="Chọn tất cả slide" />
-                            </FormGroup>
-                            <Box sx={{ width: '100%' }}>
-                                <Slider
-                                    getAriaLabel={() => 'Chọn slide'}
-                                    valueLabelDisplay="auto"
-                                    value={slide}
-                                    min={minMaxSlide[0]}
-                                    max={minMaxSlide[1]}
-                                    onChange={handleChangeSlide}
-                                    disableSwap
-                                    disabled={selectAllSlide}
-                                />
-                            </Box>
-                            <Typography variant="body2" color='GrayText'>
-                                {selectAllSlide ? 'Đã chọn tất cả slide' : `Từ slide ${slide[0]} đến slide ${slide[1]}`}
-                            </Typography>
-                        </>
-                    )}
-                    <br />
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button onClick={handleBack} sx={{ mr: 1 }}>Quay trở lại</Button>
-                        <Button variant="contained">Tiếp theo</Button>
+                    <Typography variant="body1">
+                        Vui lòng lựa chọn slide
+                    </Typography>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox inputProps={{ 'aria-label': 'controlled' }} defaultChecked onChange={handleChangeSelectAll} />} label="Chọn tất cả slide" />
+                    </FormGroup>
+                    <Box sx={{ width: '100%' }}>
+                        <Slider
+                            getAriaLabel={() => 'Chọn slide'}
+                            valueLabelDisplay="auto"
+                            value={slide}
+                            min={minMaxSlide[0]}
+                            max={minMaxSlide[1]}
+                            onChange={handleChangeSlide}
+                            disableSwap
+                            disabled={selectAllSlide}
+                        />
                     </Box>
+                    <Typography variant="body2" color='GrayText'>
+                        {selectAllSlide ? 'Đã chọn tất cả slide' : `Từ slide ${slide[0]} đến slide ${slide[1]}`}
+                    </Typography>
                 </>
             )}
-
+            <br />
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button onClick={handleBack} sx={{ mr: 1 }}>Quay trở lại</Button>
+                <Button variant="contained" onClick={() => { setStartProcessingFile(true); setStep!(2) }}>Tiếp theo</Button>
+            </Box>
         </>
     )
 }

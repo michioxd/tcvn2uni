@@ -3,7 +3,6 @@ import MainProgram from "../core";
 
 export default function MainPage() {
     return (
-
         <>
             <Typography variant="h4" component="div">
                 tcvn2uni (TCVN3 to Unicode)

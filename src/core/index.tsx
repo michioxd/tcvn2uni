@@ -60,7 +60,7 @@ export default function MainProgram() {
             </Stepper>
             <Box sx={{ display: 'flex', mt: 2, mb: 2, flexDirection: 'column' }}>
                 {
-                    selectedFile !== null ? <Option file={selectedFile} handleBack={() => { setSelectedFile(null); setCurrentStep(0) }} /> : <SelectFile isLoading={waitingForSelectFile} handle={handleSelectFile} />
+                    selectedFile !== null ? <Option file={selectedFile} setStep={st => setCurrentStep(st)} handleBack={() => { setSelectedFile(null); setCurrentStep(0) }} /> : <SelectFile isLoading={waitingForSelectFile} handle={handleSelectFile} />
                 }
             </Box>
         </>
