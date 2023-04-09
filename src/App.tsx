@@ -5,6 +5,7 @@ import MainPage from "./components/MainPage"
 import Footer from "./components/Footer"
 import { Route, Routes } from "react-router-dom"
 import ConvertText from "./components/ConvertText"
+import ConvertHelp from "./components/ConvertHelp";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                             <Route index element={<MainPage />} />
                             <Route path="*" element={<MainPage />} />
                             <Route path="/text" element={<ConvertText />} />
+                            <Route path="/help" element={<ConvertHelp />} />
                         </Routes>
                     </CardContent>
                 </Card>

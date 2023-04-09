@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, Link, Typography } from "@mui/material";
 import MainProgram from "../core";
+import { Link as LinkRoute } from 'react-router-dom'
 
 export default function MainPage() {
     return (
@@ -21,7 +22,7 @@ export default function MainPage() {
             <Typography sx={{ mt: 1 }} variant="h5" component="div">
                 Lưu ý!
             </Typography>
-            <Typography variant="body2">Vì đây là công cụ được xử lý 100% bằng trình duyệt không thông qua máy chủ, nên các định dạng file Word và PowerPoint cũ như <b>.doc</b> và <b>.ppt</b> đều cần được chuyển đổi qua định dạng <b>.docx cho file Word</b> và <b>.pptx cho file PowerPoint</b>. <Link>Nhấn vào đây để xem hướng dẫn cách chuyển đổi</Link></Typography>
+            <Typography variant="body2">Vì đây là công cụ được xử lý 100% bằng trình duyệt không thông qua máy chủ, nên các định dạng file Word và PowerPoint cũ như <b>.doc</b> và <b>.ppt</b> đều cần được chuyển đổi qua định dạng <b>.docx cho file Word</b> và <b>.pptx cho file PowerPoint</b>. <Link component={LinkRoute} to="/help">Nhấn vào đây để xem hướng dẫn cách chuyển đổi</Link></Typography>
             <Box sx={{ width: '100%', mt: 2 }}>
                 <MainProgram />
             </Box>
