@@ -58,7 +58,7 @@ export default function ConvertText() {
     }
 
     const handleSaveFile = useCallback(() => {
-        const blob = new Blob([inputText], { type: "text/plain" });
+        const blob = new Blob([outputText], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const downloadLink = document.createElement("a");
         downloadLink.href = url;
@@ -67,7 +67,7 @@ export default function ConvertText() {
         downloadLink.click();
         URL.revokeObjectURL(url);
         document.body.removeChild(downloadLink);
-    }, [inputText]);
+    }, [outputText]);
 
     return (
         <>
