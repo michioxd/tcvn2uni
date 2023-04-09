@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm i -g pnpm
       - run: pnpm i
-      - run: pnpm run build --if-present && echo "michioxd.github.io/tcvn2uni" > ./dist/CNAME
+      - run: pnpm run build && echo "michioxd.github.io/tcvn2uni" > ./dist/CNAME
       - run: cp ./dist/index.html ./dist/404.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
