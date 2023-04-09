@@ -15,7 +15,7 @@ export default function MainPage() {
                 Tại sao?
             </Typography>
             <Typography variant="body2">
-                Trong các file Word hoặc PowerPoint cũ từ những năm 200x, người ta sẽ chỉ sử dụng chủ yếu là bảng mã TCVN3 vì lúc đấy Unicode chưa hỗ trợ đầy đủ chữ Quốc ngữ, sau dần, Unicode đã hỗ trợ đầy đủ chữ Quốc ngữ (Tiếng Việt), nên TCVN3 đã trở nên lỗi thời. Cùng với đó, các phông chữ hiện đại (Times New Roman) sẽ không hiện thị được các ký tự của bảng mã TCVN3. Công cũ này tạo ra để chuyển đổi các nội dung sử dụng bảng mã TCVN3 sang Unicode trong các file Word hoặc PowerPoint.
+                Trong các file Word hoặc PowerPoint cũ từ những năm 200x, người ta sẽ chỉ sử dụng chủ yếu là bảng mã TCVN3 vì lúc đấy Unicode chưa hỗ trợ đầy đủ chữ Quốc ngữ, sau dần, Unicode đã hỗ trợ đầy đủ chữ Quốc ngữ (Tiếng Việt), nên TCVN3 đã trở nên lỗi thời. Cùng với đó, các phông chữ hiện đại (ví dụ: Times New Roman,...) sẽ không hiện thị được các ký tự của bảng mã TCVN3. Công cũ này tạo ra để chuyển đổi các nội dung sử dụng bảng mã TCVN3 sang Unicode trong các file Word hoặc PowerPoint.
                 <br />
                 Ví dụ: <b><code>Xin chµo tÊt c¶ mäi ng­êi</code></b> =&gt; <b><code>Xin chào tất cả mọi người</code></b>
             </Typography>
