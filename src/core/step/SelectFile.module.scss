@@ -1,0 +1,25 @@
+.SelectFileArea {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed gray;
+    position: relative;
+
+    .SelectFileInput {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 9;
+    }
+
+    .TopArea {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
