@@ -12,7 +12,7 @@ import { SnackbarProvider } from 'notistack';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
-    <BrowserRouter>
+    <BrowserRouter basename={(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '/' : '/tcvn2uni'}>
         <SnackbarProvider autoHideDuration={5000}>
             <ThemeMode>
                 <CssBaseline enableColorScheme={true} />
