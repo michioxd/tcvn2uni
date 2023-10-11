@@ -7,9 +7,7 @@ import { VietnameseConversion } from "vietnamese-conversion";
 
 const charSupported: string[] = ['tcvn3', 'vni'];
 
-
-
-export default function ProcessingFile({ selectedChar, setStep, file, ext, filename, selectedSlide, selectAll, handleBack }: { selectedChar: number, setStep: (st: number) => void, selectAll: boolean, selectedSlide: number[], file: File, ext?: string, filename: string, handleBack?: () => void }) {
+export default function ProcessingFile({ selectedChar, setStep, file, ext, filename, selectedSlide, selectAll, handleBack, convertFont }: { selectedChar: number, setStep: (st: number) => void, selectAll: boolean, selectedSlide: number[], file: File, ext?: string, filename: string, handleBack?: () => void, convertFont?: boolean }) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [firstProcessed, setFirstProcessed] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
@@ -34,10 +32,13 @@ export default function ProcessingFile({ selectedChar, setStep, file, ext, filen
                 if (currentSlideName !== null && typeof currentSlideName !== 'undefined') {
                     const output = await d.file(currentSlideName)?.async("uint8array");
                     if (output) {
-                        const convertedText = (new VietnameseConversion(
+                        let convertedText = (new VietnameseConversion(
                             (new TextDecoder().decode(output)),
                             charSupported[selectedChar]))
                             .toCharset('unicode');
+                        if (convertFont) {
+                            convertedText = convertedText.replaceAll(`typeface=".VnTime"`, `typeface="Times New Roman"`);
+                        }
                         d.file(currentSlideName, convertedText);
                     }
                 }
@@ -65,13 +66,33 @@ export default function ProcessingFile({ selectedChar, setStep, file, ext, filen
                     handleError("Không thể đọc dữ liệu, vui lòng thử lại sau!");
                 }
 
+            } else if (ext === 'xlsx') {
+                const excelFile = await d.file('xl/sharedStrings.xml')?.async("uint8array");
+                const styleFile = await d.file('xl/styles.xml')?.async("uint8array");
+                const convertedText = (new VietnameseConversion(
+                    (new TextDecoder().decode(excelFile)),
+                    charSupported[selectedChar]))
+                    .toCharset('unicode');
+                if (convertFont) {
+                    const styleStringFile = new TextDecoder().decode(styleFile);
+                    d.file('xl/styles.xml', styleStringFile?.replaceAll(".VnTime", "Times New Roman"));
+                }
+
+                d.file('xl/sharedStrings.xml', convertedText);
+                const outputDocFile = await d.generateAsync({ type: 'blob' });
+
+                saveAs(outputDocFile, 'converted-' + filename);
+                setStep(3);
+                setCompleted(true);
             } else {
                 const wordFile = await d.file('word/document.xml')?.async("uint8array");
-                const convertedText = (new VietnameseConversion(
+                let convertedText = (new VietnameseConversion(
                     (new TextDecoder().decode(wordFile)),
                     charSupported[selectedChar]))
                     .toCharset('unicode');
-
+                if (convertFont) {
+                    convertedText = convertedText.replaceAll(`w:ascii=".VnTime"`, `w:ascii="Times New Roman"`);
+                }
                 d.file('word/document.xml', convertedText);
                 const outputDocFile = await d.generateAsync({ type: 'blob' });
 

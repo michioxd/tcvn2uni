@@ -18,6 +18,7 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
     const [startProcessingFile, setStartProcessingFile] = useState<boolean>(false);
     const [selectAllSlide, setSelectAllSlide] = useState<boolean>(true);
     const [selectedChar, setSelectedChar] = React.useState<number>(0);
+    const [convertFont, setConvertFont] = useState(false);
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = parseInt(event.target.value);
@@ -64,14 +65,15 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
                         console.log(slideFile);
                         setMinMaxSlide([1, slideFile.length]);
                         setSlide([1, slideFile.length]);
-                        console.log(minMaxSlide);
                     } else {
                         handleError("Không thể đọc dữ liệu, vui lòng thử lại sau!");
                     }
+                } else if (extension === 'xlsx') {
+                    const srdFile = f.file('xl/sharedStrings.xml');
+                    setLoadingFile(false);
                 } else {
                     const documentFile = f.file('word/document.xml');
                     setLoadingFile(false);
-                    console.log(documentFile);
                 }
 
             }
@@ -79,7 +81,7 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
 
     }, [file]);
 
-    if (startProcessingFile) return (<ProcessingFile setStep={(st) => setStep!(st)} selectedChar={selectedChar} selectedSlide={slide} selectAll={selectAllSlide} file={file} ext={extension} filename={filename} handleBack={handleBack} />);
+    if (startProcessingFile) return (<ProcessingFile setStep={(st) => setStep!(st)} selectedChar={selectedChar} selectedSlide={slide} selectAll={selectAllSlide} file={file} ext={extension} filename={filename} handleBack={handleBack} convertFont={convertFont} />);
 
     if (loadingFile) return (
         <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -90,7 +92,7 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
 
     return (
         <>
-            <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormControl fullWidth sx={{ mb: 1 }}>
                 <InputLabel id="select-char-label">Chọn bảng mã của dữ liệu vào</InputLabel>
                 <Select
                     labelId="select-char-label"
@@ -105,6 +107,14 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
                 </Select>
                 <FormHelperText>Nếu bảng mã hiện tại không khớp, vui lòng chuyển qua bảng mã khác!</FormHelperText>
             </FormControl>
+            <FormGroup sx={{ mb: 2 }}>
+                <FormControlLabel control={<Checkbox
+                    value={convertFont}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setConvertFont(event.target.checked);
+                    }} />}
+                    label="Tự động chuyển đổi phông .VnTime qua Time New Roman (nếu có)" />
+            </FormGroup>
             {extension === "pptx" && (
                 <>
                     <Typography variant="body1">

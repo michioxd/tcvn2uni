@@ -12,10 +12,12 @@ export default function ConvertHelp() {
     return (
         <>
             <Typography variant="h5">
-                Hướng dẫn cách chuyển từ định dạng .doc hoặc .ppt sang .docx hoặc .pptx
+                Hướng dẫn cách chuyển từ định dạng .doc, .ppt, .xlsx sang .docx, .pptx, .xlsx
             </Typography>
             <Button sx={{ mt: 3, mb: 3 }} component={Link} to="/" variant="outlined">Quay về trang chủ</Button>
             <Typography variant="body1">
+                <b>LƯU Ý: </b> Đây là ví dụ với tệp PowerPoint (.ppt), bạn có thể làm tương tự với các tệp Word (.doc) và Excel (.xls)
+                <br />
                 Bước 1: Khởi động tệp .ppt của bạn lên
                 <br />
                 Bước 2: Nhấn vào nút File (Tệp)

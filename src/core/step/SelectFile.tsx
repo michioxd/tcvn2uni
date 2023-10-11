@@ -18,14 +18,14 @@ export default function SelectFile({ isLoading, handle }: { isLoading?: boolean,
             >Chọn tệp</Button>
              */}
             <div className={Style.SelectFileArea}>
-                <input className={Style.SelectFileInput} onChange={handle} type="file" accept=".docx,.pptx" />
+                <input className={Style.SelectFileInput} onChange={handle} type="file" accept=".docx,.pptx,.xlsx" />
                 <div className={Style.TopArea}>
                     <Typography variant="body2">
                         Nhấn vào đây để chọn tệp hoặc kéo thả tệp vào vùng có màu xám này
                     </Typography>
                     <br />
                     <Typography textAlign={'center'} variant="body2" color="GrayText" fontSize={13}>
-                        Chỉ chấp nhận file <b>.docx</b> hoặc file <b>.pptx</b>
+                        Chỉ chấp nhận file <b>.docx</b>, <b>.pptx</b> hoặc <b>.xlsx</b>
                         <br />
                         Tệp càng lớn xử lý càng lâu hơn!
                     </Typography>
