@@ -8,8 +8,6 @@ import ConvertText from "./components/ConvertText"
 import ConvertHelp from "./components/ConvertHelp";
 
 function App() {
-
-
     return (
         <>
             <Header />

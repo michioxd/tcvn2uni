@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Link, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Link, Typography } from "@mui/material";
 import MainProgram from "../core";
 import { Link as LinkRoute } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ export default function MainPage() {
             <Typography variant="body1">
                 Công cụ trực tuyến miễn phí và <Link href="https://github.com/michioxd/tcvn2uni" target="_blank">mã nguồn mở</Link> giúp <b>chuyển đổi ký tự từ bảng mã TCVN3 (tiêu chuẩn cũ)</b> trong file <b>Microsoft Word (.docx)</b>, <b>Microsoft PowerPoint (.pptx)</b>, <b>Microsoft Excel (.xlsx)</b> sang <b>bảng mã Unicode</b>
             </Typography>
-            <Typography sx={{ mt: 1 }} variant="h5" component="div">
+            <Typography sx={{ mt: 1 }} variant="h6" component="div">
                 Tại sao?
             </Typography>
             <Typography variant="body2">
@@ -19,11 +19,16 @@ export default function MainPage() {
                 <br />
                 Ví dụ: <b><code>Xin chµo tÊt c¶ mäi ng­êi</code></b> =&gt; <b><code>Xin chào tất cả mọi người</code></b>
             </Typography>
-            <Typography sx={{ mt: 1 }} variant="h5" component="div">
-                Lưu ý!
+            <Typography sx={{ mt: 1 }} variant="h6" component="div">
+                Xin vui lòng đọc kỹ lưu ý sau đây!
             </Typography>
-            <Typography variant="body2">Vì đây là công cụ được xử lý 100% bằng trình duyệt không thông qua máy chủ, nên các định dạng file Word, PowerPoint và Excel cũ như <b>.doc</b>, <b>.ppt</b>, <b>.xls</b> đều cần được chuyển đổi qua định dạng <b>.docx cho file Word</b>, <b>.pptx cho file PowerPoint</b>, <b>.xlsx cho file Excel</b>. <Link component={LinkRoute} to="/help">Nhấn vào đây để xem hướng dẫn cách chuyển đổi</Link></Typography>
-            <Typography sx={{ mt: 1 }} variant="h5" component="div">
+            <Typography variant="body2">
+                Vì đây là công cụ được xử lý 100% bằng trình duyệt không thông qua máy chủ, nên các định dạng file Word, PowerPoint và Excel cũ như <b>.doc</b>, <b>.ppt</b>, <b>.xls</b> đều cần được chuyển đổi qua định dạng <b>.docx cho file Word</b>, <b>.pptx cho file PowerPoint</b>, <b>.xlsx cho file Excel</b>. <Link component={LinkRoute} to="/help">Nhấn vào đây để xem hướng dẫn cách chuyển đổi</Link>
+                <br />
+                <br />
+                <i>Đuôi file là các kí tự ở cuối sau dấu chấm của tên tệp, ví dụ: <code>TAI LIEU 2024.<b>docx</b></code> (trong đó, đuôi .docx là đuôi của tên file đã cho)</i>
+            </Typography>
+            <Typography sx={{ mt: 1 }} variant="h6" component="div">
                 Bảo mật
             </Typography>
             <Typography variant="body2">
@@ -33,6 +38,18 @@ export default function MainPage() {
             <Box sx={{ width: '100%', mt: 2 }}>
                 <MainProgram />
             </Box>
+            <Button component={LinkRoute} to="/help" fullWidth variant="outlined">Xem cách hướng dẫn đổi đuôi tệp</Button>
+
+            <br />
+
+            <Typography sx={{ mt: 1 }} variant="h6" component="div">
+                Hỗ trợ
+            </Typography>
+            <Typography variant="body2">
+                Nếu thấy công cụ này hữu ích, hãy tặng dự án này 1 sao trên <Link href="https://github.com/michioxd/tcvn2uni" target="_blank">GitHub</Link>.
+                <br />
+                Nếu thật sự thích, bạn có thể donate qua <Link href="https://liberapay.com/michioxd/" target="_blank">Liberapay</Link> hoặc <Link href="https://ko-fi.com/michioxd/" target="_blank">Ko-fi</Link>. Xin cảm ơn!
+            </Typography>
         </>
     )
 }

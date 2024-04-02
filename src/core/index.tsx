@@ -22,7 +22,12 @@ export default function MainProgram() {
             const filename = selectedFileInInput.name;
             const extension = filename.split('.').pop()?.toLowerCase();
 
-            if (extension !== 'pptx' && extension !== 'docx' && extension !== 'xlsx') {
+            if (extension === "ppt" || extension === "doc" || extension === "xls") {
+                enqueueSnackbar(`Tệp định dạng cũ (${extension}) không được hỗ trợ, vui lòng nhấn vào nút Xem cách hướng dẫn đổi đuôi tệp để chuyển đổi!`, {
+                    variant: 'error',
+                    autoHideDuration: 8000
+                });
+            } else if (extension !== 'pptx' && extension !== 'docx' && extension !== 'xlsx') {
                 enqueueSnackbar('Tệp không đúng định dạng. Chỉ hỗ trợ định dạng .docx, .pptx và .xlsx!', {
                     variant: 'error',
                     autoHideDuration: 5000

@@ -113,7 +113,7 @@ export default function Option({ file, handleBack, setStep }: { file: File, hand
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         setConvertFont(event.target.checked);
                     }} />}
-                    label="Tự động chuyển đổi phông .VnTime qua Time New Roman (nếu có)" />
+                    label="Tự động chuyển đổi phông .VnTime qua Time New Roman (nếu có, không khuyến khích)" />
             </FormGroup>
             {extension === "pptx" && (
                 <>
